@@ -18,30 +18,23 @@ class CustomerData(BaseModel):
     IsActiveMember: int 
     EstimatedSalary: float
 
-# Load the saved model
-model = tf.keras.models.load_model('churn_model.h5') 
+# Load your trained model
+model = tf.keras.models.load_model('churn_model.h5')
 
 @app.post("/predict")
 async def predict_churn(data: CustomerData):
-    # Convert input data to a NumPy array
+    # Prepare input data for the model
     input_data = np.array([[
         data.CreditScore, data.Geography, data.Gender, data.Age,
         data.Tenure, data.Balance, data.NumOfProducts,
         data.HasCrCard, data.IsActiveMember, data.EstimatedSalary
     ]])
 
-    # Make a prediction
-    prediction = model.predict(input_data)
-    
-    # If the model returns a scalar (single prediction), handle it
-    if isinstance(prediction, np.ndarray):
-        prediction = prediction.item()  # Convert single-item array to scalar
-    
-    # You can apply a threshold if desired
-    churn_class = 1 if prediction >= 0.5 else 0
-    
-    # Return the prediction as probability and classification
-    return {"churn_probability": float(prediction), "churn_class": churn_class}
+    # Get the prediction from the model
+    prediction = model.predict(input_data)[0][0]  # Get probability
+
+    # Return the prediction as JSON
+    return {"churn_probability": float(prediction)}
 
 from fastapi.middleware.cors import CORSMiddleware
 
