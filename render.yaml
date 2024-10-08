@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: my-app
+    env: docker
+    plan: standard
+    buildCommand: ./build.sh
+    startCommand: ./start.sh
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+        value: YOUR_DATABASE_URL
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /
+    autoDeploy: true
+    region: oregon
+    routes:
+      - type: http
+        src: /
+        dest: /
+s
