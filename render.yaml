@@ -1,22 +1,21 @@
 services:
-  - type: web
-    name: my-app
-    env: docker
-    plan: standard
-    buildCommand: ./build.sh
-    startCommand: ./start.sh
-    dockerfilePath: ./Dockerfile
-    envVars:
+  - type: web                     # Service type (web app)
+    name: my-app                   # Name of your service
+    env: docker                    # Environment is docker
+    plan: standard                 # Pricing plan
+    buildCommand: "./build.sh"     # Command to build the app
+    startCommand: "./start.sh"     # Command to start the app
+    dockerfilePath: ./Dockerfile   # Path to Dockerfile
+    envVars:                       # Environment variables section
       - key: DATABASE_URL
         sync: false
-        value: YOUR_DATABASE_URL
+        value: YOUR_DATABASE_URL   # Replace with your actual database URL
       - key: NODE_ENV
         value: production
-    healthCheckPath: /
-    autoDeploy: true
-    region: oregon
-    routes:
+    healthCheckPath: /             # Path for health check
+    autoDeploy: true               # Enable auto-deploy on new commits
+    region: oregon                 # Specify deployment region
+    routes:                        # Route configuration
       - type: http
-        src: /
-        dest: /
-s
+        src: /                     # Route incoming traffic from /
+        dest: /                    # Forward traffic to /
