@@ -17,5 +17,5 @@ services:
     region: oregon                 # Specify deployment region
     routes:                        # Route configuration
       - type: http
-        src: /                     # Route incoming traffic from /
-        dest: /                    # Forward traffic to /
+        src: /                     # Route incoming traffic from 
+        dest: /                    # Forward traffic to 
