@@ -17,5 +17,4 @@ services:
     region: oregon                 # Specify deployment region
     routes:                        # Route configuration
       - type: http
-        src: /                     # Route incoming traffic from 
-        dest: /                    # Forward traffic to 
+        path: https://ajaysurya453.github.io/BankChurn/                   # Define the route path (not src)
